@@ -28,13 +28,12 @@ public class day1 {
         }
 
 
-        // 1. Emparelhe o menor número na lista da esquerda com o menor número da lista da direita
-        Collections.sort(leftList);
+        // 1. Compare the smallest number in the left list with the smallest number in the right list        Collections.sort(leftList);
         Collections.sort(rightList);
 
 
-        // 2. Dentro de cada par, descubra a que distância estão os dois números; você precisará somar todas essas distâncias.
-        // 3. Somar todas essas distâncias
+        // 2. Within each pair, find out how far apart the two numbers are; you will need to add up all these distances.
+        // 3. Add up all these distances
 
         return IntStream.range(0, Math.min(leftList.size(), rightList.size()))
                 .map(i -> Math.abs(leftList.get(i) - Math.abs(rightList.get(i))))
