@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class day1 {
 
@@ -27,7 +28,6 @@ public class day1 {
         }
 
 
-
         // 1. Emparelhe o menor número na lista da esquerda com o menor número da lista da direita
         Collections.sort(leftList);
         Collections.sort(rightList);
@@ -35,13 +35,10 @@ public class day1 {
 
         // 2. Dentro de cada par, descubra a que distância estão os dois números; você precisará somar todas essas distâncias.
         // 3. Somar todas essas distâncias
-        for(int i = 0; i < leftList.size(); i++){
-            result += Math.abs(leftList.get(i) - rightList.get(i));
 
-        }
-
-
-        return result;
+        return IntStream.range(0, Math.min(leftList.size(), rightList.size()))
+                .map(i -> Math.abs(leftList.get(i) - Math.abs(rightList.get(i))))
+                .sum();
     }
 
     public List<String[]> readInputChallenge() throws IOException {
