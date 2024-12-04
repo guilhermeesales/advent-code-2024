@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         day1 day = new day1();
 
-        System.out.println(day.solution());
+        day.solutionPart2();
 
 
 

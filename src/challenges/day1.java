@@ -1,14 +1,13 @@
 package challenges;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class day1 {
 
-    public Integer solution(){
+    public Integer solutionPart1(){
         Integer result = 0;
         List<Integer> leftList = new ArrayList<>();
         List<Integer> rightList = new ArrayList<>();
@@ -38,6 +37,44 @@ public class day1 {
         return IntStream.range(0, Math.min(leftList.size(), rightList.size()))
                 .map(i -> Math.abs(leftList.get(i) - Math.abs(rightList.get(i))))
                 .sum();
+    }
+
+
+    public void solutionPart2() throws IOException {
+        Integer similarityPunctuation = 0;
+        List<Integer> leftList = new ArrayList<>();
+        List<Integer> rightList = new ArrayList<>();
+
+        try {
+            List<String[]> list = readInputChallenge();
+
+            for (String[] pair : list) {
+                if(pair.length == 2) {
+                    leftList.add(Integer.parseInt(pair[0].trim()));
+                    rightList.add(Integer.parseInt(pair[1].trim()));
+                }
+            }
+
+        } catch(IOException a) {
+            System.out.println("Erro ao fazer a leitura do arquivo.");
+        }
+
+
+        Map<Integer, Integer> countRight = rightList.stream()
+                .collect(Collectors.groupingBy(i -> i,
+                        Collectors.collectingAndThen(Collectors.counting(), Long::intValue)));
+
+
+
+        similarityPunctuation = leftList.stream().map(num ->
+                num * countRight.getOrDefault(num, 0)
+        ).reduce(0, Integer::sum);
+
+
+        System.out.println(similarityPunctuation);
+
+
+
     }
 
     public List<String[]> readInputChallenge() throws IOException {
